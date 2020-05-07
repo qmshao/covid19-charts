@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.1/css/all.css">
+    <!-- CSS Files -->
+    <link href="/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="/chart.css" rel="stylesheet" />
+    <title>COVID-19 Charts</title>
+  </head>
+  <body>
+    <!-- <nav class="nav nav-tabs nav-justified">
+        <div class="nav-item nav-link active" href="#">World </br> 1800000</br> 30000</div>
+        <a class="nav-item nav-link" href="#">US</a>
+        <a class="nav-item nav-link" href="#">PA</a>
+      </nav> -->
+      
+
+        <h3 style="padding:10px 30px;margin: auto;text-align: center">COVID-19 Charts</h3>
+          <!-- <a href="#">
+            <i class="material-icons " data-toggle="modal" data-target="#exampleModal" style="color:grey">info</i>
+          </a>
+        </h3>
+        <h6 id="last-updated" style="padding:0px 30px;margin: auto;text-align: center"> 
+          Last Updated 
+        </h6> -->
+        
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding:3rem 0">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Data Source</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                We aggregate data from official government websites, CDC, worldometer, John Hopkins, covidtracking.com and 1point3acres.
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      <div class="main">
+        <div class="card">
+            <div class="card-header card-header-danger" id="header">
+                <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <ul class="nav nav-tabs nav-justified" data-tabs="tabs">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onClick="showCharts('world')" id="world-tab" data-toggle="tab">
+                                  World
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" onClick="showCharts('us')" id="us-tab" data-toggle="tab">
+                                  US
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          <div class="card-body">
+            
+            <div class="container-fluid" id="chart_container">
+              Loading...
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->  <!--   Core JS Files   -->
+    <script src="/assets/js/core/jquery.min.js"></script>
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="/assets/axios.min.js"></script>
+    <script src="/assets/echarts.min.js"></script>
+    <script src="/const.js"></script>
+    <script src="/app.js?t=0412c"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+  </body>
+  <footer><a class="text-danger" href="https://us-coronavirus.info/" target="_blank">&copy; Copyright 2020 us-coronavirus.info</a></footer>
+</html>

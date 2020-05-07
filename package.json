@@ -1,0 +1,29 @@
+{
+  "name": "covid-19-dashboard",
+  "version": "1.0.0",
+  "description": "```\r sudo su\r cd covid19-dasboard\r npm install express\r npm install concat-stream\r cd node_modules\r git clone https://github.com/qmshao/covid19-dblib.git\r cd covid-dblib\r npm install\r cd ../../\r npm install pm2 -g\r mkdir ~/.aws\r vim ~/.aws/credentials\r pm2 start dashdb.js -i max\r ```",
+  "main": "dashdb.js",
+  "dependencies": {
+    "concat-stream": "^2.0.0",
+    "csv-parse": "^4.9.0",
+    "express": "^4.17.1",
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qmshao/covid19-dashboard.git"
+  },
+  "keywords": [
+    "COVID19",
+    "Charts"
+  ],
+  "author": "Quan Min Shao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qmshao/covid19-dashboard/issues"
+  },
+  "homepage": "https://github.com/qmshao/covid19-dashboard#readme"
+}
