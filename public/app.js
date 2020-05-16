@@ -174,17 +174,17 @@ let showCharts = function (region, data = histData) {
     let death = Object.entries(data[`deaths_${key}`].hist);
     let dates = data[`confirmed_${key}`].dates.map(e => e.slice(0,-3));
 
+    let idx = -1
     if (region != 'world'){
         let idx = data[`confirmed_${key}`].dates.findIndex(e => e=='2/29/20');
         dates = dates.slice(idx);
-        confimred = confirmed.slice(idx);
-        death = death.slice(idx);
+        confirmed = confirmed.map(e=> [e[0], e[1].slice(idx)]);
+        death = death.map(e=> [e[0], e[1].slice(idx)]);
     }
 
     
     const confirmedNew = confirmed.map(e => [e[0], e[1].map((v, i, a) => i ? v - a[i-1] : null)]);
     const deathNew = death.map(e => [e[0], e[1].map((v, i, a) => i ? v - a[i-1] : null)]);
-
 
     const config = [
         createChartConfig(dates, confirmed, 'Confirmed Cumulative', colorPresets[region]),
