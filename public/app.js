@@ -3,6 +3,10 @@ let currScope;
 let initW;
 let windowWidth, windowHeight;
 
+function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
 function stickyMenu(e) {
     // Also update charts
     if (windowWidth != window.innerWidth || windowHeight != window.innerHeight && devicePixelRatio<1.5){
@@ -43,8 +47,13 @@ const colorPresets = {
         Spain: 1,
         Italy: 2,
         'United Kingdom': 3,
+        India: 5,
+        Germany: 6,
         France: 7,
-        Brazil: 8
+        Brazil: 8,
+        Russia: 4,
+        Mexico: 2,
+        Ecuador: 7,
     },
 
     'us':{
@@ -58,8 +67,12 @@ const colorPresets = {
 }
 const createChartConfig = function (x, y, title, colorPresetDefault={}) {
 
-    const totDays = 30;
-    const dates = x.slice(-totDays);
+    // const totDays = 30;
+    // const dates = x.slice(-totDays);
+    const dates = x.slice(1);
+    const data = y.map(e => [e[0], e[1].slice(1)]);
+    
+    const totDays = dates.length;
     let colorPreset = JSON.parse(JSON.stringify(colorPresetDefault));
     const baseOption= {
         timeline: {
@@ -69,7 +82,8 @@ const createChartConfig = function (x, y, title, colorPresetDefault={}) {
             autoPlay: false,
             currentIndex: dates.length - 1,
             playInterval: 1000,
-            data: dates
+            data: dates,
+            symbol: 'none',
         },
         title: {
             text: title,
@@ -77,7 +91,19 @@ const createChartConfig = function (x, y, title, colorPresetDefault={}) {
             textStyle: {fontWeight: 'bold'}
         },
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            formatter: function (params) {
+                var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
+                let rez = params[0].axisValue;
+                //console.log(params); //quite useful for debug
+                params.filter(e => e.data).forEach(item => {
+                    //console.log(item); //quite useful for debug
+                    var xx = '</br>'   + colorSpan(item.color) + ' ' + item.seriesName + ': ' + formatNumber(item.data )
+                    rez += xx;
+                });
+        
+                return rez;
+            }       
         },
         grid: [{
             top: 30,
@@ -99,10 +125,10 @@ const createChartConfig = function (x, y, title, colorPresetDefault={}) {
     }
 
     const options = dates.map( (v,i) => {
-        let seriesData = y.sort((a, b) => -a[1].slice(-totDays+i)[0] + b[1].slice(-totDays+i)[0]).slice(0, 5);
+        let seriesData = data.filter(e=>e[1][i]).sort((a, b) => -a[1][i] + b[1][i]).slice(0, 5);
         return {       
             xAxis: {
-                data: i==totDays-1?x:x.slice(0, -totDays+i+1),
+                data: i==totDays-1?dates:dates.slice(0, -totDays+i+1),
             },
             legend: {
                 orient: 'vertical',
@@ -117,16 +143,17 @@ const createChartConfig = function (x, y, title, colorPresetDefault={}) {
                 if (! (e[0] in colorPreset)){
                     const currIndices = new Set(Object.values(colorPreset));
                     let i = 0;
-                    while (currIndices.has(i)) i++;
+                    while (currIndices.has(i) || i%10 == 0) i++;
                     colorPreset[e[0]] = i;
+                    // console.log(e[0], i)
                 }
                 return {
                     // symbol: 'rect',symbolSize : 1,
                     showSymbol: false,
                     name: e[0],
-                    data: e[1],
+                    data: e[1].slice(0,i+1),
                     type: 'line',
-                    color: colorSet[colorPreset[e[0]]]
+                    color: colorSet[colorPreset[e[0]]%10]
                 }
             })
         }
@@ -149,6 +176,7 @@ let showCharts = function (region, data = histData) {
     const dates = data[`confirmed_${key}`].dates.map(e => e.slice(0,-3));
     const confirmedNew = confirmed.map(e => [e[0], e[1].map((v, i, a) => i ? v - a[i-1] : null)]);
     const deathNew = death.map(e => [e[0], e[1].map((v, i, a) => i ? v - a[i-1] : null)]);
+
 
     const config = [
         createChartConfig(dates, confirmed, 'Confirmed Cumulative', colorPresets[region]),
